@@ -1,0 +1,14 @@
+_format_version: "3.0"
+
+services:
+  - name: my_api
+    url: http://server:8080
+    routes:
+      - name: my_api_route
+        paths:
+          - /
+        strip_path: false
+    plugins:
+      - name: basic-auth
+        config:
+          hide_credentials: true
