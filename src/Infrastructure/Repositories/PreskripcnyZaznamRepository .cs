@@ -1128,15 +1128,16 @@ public class PreskripciaService : IPreskripciaService
     public async Task<List<PacientDto>> GetPacientiAsync()
     {
         return await _context.Pacienti
-            .Include(p => p.Pouzivatel)  // ✅ Načítanie RodneCislo
-            .Include(p => p.Poistenie)   // ✅ Načítanie ICP
+            .Include(p => p.Pouzivatel)
+            .Include(p => p.Poistenie)
             .Select(p => new PacientDto
             {
                 RodneCislo = p.Pouzivatel.RodneCislo,
-                ICP = p.Poistenie != null ? p.Poistenie.ICP : null, // ✅ Bezpečná kontrola
-                Pacient = p
+                ICP = p.Poistenie != null ? p.Poistenie.ICP : null
+                // 🔥 NEzahrňuj `Pacient = p`
             })
             .ToListAsync();
     }
+
 
 }
